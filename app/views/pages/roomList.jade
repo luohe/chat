@@ -1,0 +1,43 @@
+extends ../layout
+block content
+  .col-lg-8.col-lg-offset-2
+    table.table.table-striped.table-hover.table-responsive.table-bordered
+      thead
+        td 房间ID
+        td 人数
+        td 房间容量
+        td 进入房间
+      each item in roomList
+        tr
+          td #{item.roomName}
+          td #{item.members.length}
+          td #{item.number}
+          td
+            a.pull-right.btn.btn-sm.btn-primary.show-toggle(href="#",data-id='#{item._id}') 进入房间
+  .col-lg-8.col-lg-offset-2
+    a.btn.btn-lg.btn-primary.pull-right(href="#",data-toggle="modal",data-target="#createRoom") 创建房间
+
+  #intoRoom.modal.fade
+    .modal-dialog
+      .modal-content
+        form(method="POST",action="/chat/into")
+          .modal-header 进入房间
+          .modal-body
+            .form-group(style='display:none')
+              label.label-control(for="roomID") 房间ID
+              input.form-control#roomID(name="room[roomID]",type="text")
+            .form-group
+              label.label-control(for="roomPassword") 密码
+              input.form-control#roomPassword(name="room[password]",type="text")
+          .modal-footer
+            button.btn.btn-default(type="button",data-dismiss="modal") 关闭
+            button.btn.btn-primary(type="submit") 提交
+
+  script.
+    $('.show-toggle').click(function () {
+
+      var $into = $('#intoRoom');
+      $('#roomID').val($(this).data('id'))
+      $into.modal();
+    })
+

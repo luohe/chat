@@ -1,0 +1,16 @@
+extends ../layout.jade
+block content
+  .container
+    .row
+      form(method="POST",action="/user/signup")
+        .modal-header 注册
+        .modal-body.col-md-6.col-md-offset-3
+          .form-group
+            label.label-control(for="signupName") 用户名
+            input.form-control#signupName(name="user[name]",type="text")
+          .form-group
+            label.label-control(for="signupWord") 密码
+            input.form-control#signupWord(name="user[password]",type="text")
+        .modal-footer.col-md-12
+          button.btn.btn-default(type="button",data-dismiss="modal") 关闭
+          button.btn.btn-primary(type="submit") 提交
